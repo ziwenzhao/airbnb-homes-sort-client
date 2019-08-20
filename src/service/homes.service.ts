@@ -1,0 +1,50 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { RestApiService } from './rest-api.service';
+import { Home } from 'src/models/home';
+
+const BASE_URL = 'http://airbnbscrapeserver.x6pv2j6aqy.us-east-1.elasticbeanstalk.com';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HomesService {
+
+  constructor(
+    private http: HttpClient,
+    private rest: RestApiService
+  ) { }
+
+  async scrapeAndGetHomes(url: string, maxPageNumber?: number): Promise<Home[]> {
+    const { job_id } = await this.scrapeHomes(url, maxPageNumber);
+    const homesJson = await this.getHomesWithJobId(job_id);
+    await this.deleteHomesJsonFile(job_id);
+    return homesJson.map(json => Home.getHomeFromJson(json));
+  }
+
+  scrapeHomes(url: string, maxPageNumber?: number) {
+    return this.rest.request('POST', BASE_URL + '/scrape_homes', {
+      params: {
+        url,
+        maxPageNumber
+      },
+    });
+  }
+
+  getHomesWithJobId(jobId: string) {
+    return this.rest.request('GET', BASE_URL + '/get_homes', {
+      params: {
+        job_id: jobId
+      },
+    });
+  }
+
+  deleteHomesJsonFile(jobId: string) {
+    return this.rest.request('DELETE', BASE_URL + '/file', {
+      params: {
+        job_id: jobId
+      }
+    });
+  }
+}
