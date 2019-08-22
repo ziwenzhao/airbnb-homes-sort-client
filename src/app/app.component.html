@@ -18,5 +18,20 @@
   </li>
 </ul> -->
 
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput required type="text" placeholder="Airbnb Homes Url" formControlName="url">
+    <mat-error>This is not a valid airbnb homes url</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Max Search Page Number" formControlName="maxPageNumber">
+    <mat-hint align="start">It will take longer time if a large page number is provided, usually 5 pages is enough for a
+      satisfied search result.</mat-hint>
+    <mat-error>Please enter a valid integer page number</mat-error>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button type="submit">Search</button>
+</form>
 
-<router-outlet></router-outlet>
+
+<!-- <router-outlet></router-outlet> -->
