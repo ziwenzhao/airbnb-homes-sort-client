@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule, MatListModule, MatButtonModule } from '@angular/material';
 
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomesService } from 'src/service/homes.service';
 import { RestApiService } from 'src/service/rest-api.service';
@@ -20,7 +19,6 @@ const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatSele
   ],
   imports: [
     BrowserModule,
-    // AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
