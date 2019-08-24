@@ -10,6 +10,9 @@ import { airbnbUrlValidator, integerValidator } from 'src/utils/validators';
 })
 export class AppComponent {
   private searchForm: FormGroup;
+  private homes = [];
+  private loading = false;
+
   constructor(
     private fb: FormBuilder,
     private homeService: HomesService
@@ -24,12 +27,17 @@ export class AppComponent {
     });
   }
 
-  private onSubmit() {
-    this.searchHomes();
-  }
-
-  private searchHomes() {
-    // this.
+  private async searchHomes() {
+    this.loading = true;
+    try {
+      this.homes = await this.homeService.scrapeAndGetHomes(this.searchForm.controls.url.value,
+        this.searchForm.controls.maxPageNumber.value);
+      console.log('Fetching homes success', this.homes);
+    } catch (err) {
+      console.error('Fetch homes fails', err);
+    } finally {
+      this.loading = false;
+    }
   }
 
   show() {

@@ -1,6 +1,7 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="container">
-  <div class="row">
+<form [formGroup]="searchForm" (ngSubmit)="searchHomes()" class="container">
+  <div class="row mt-3">
     <div class="col">
+      <p>1. Fill the input fields on airbnb</p>
       <mat-form-field>
         <input matInput required type="url" placeholder="Airbnb Homes Url" formControlName="url">
         <mat-error>This is not a valid airbnb homes url</mat-error>
@@ -26,3 +27,5 @@
     </div>
   </div>
 </form>
+
+<!-- <mat-spinner></mat-spinner> -->

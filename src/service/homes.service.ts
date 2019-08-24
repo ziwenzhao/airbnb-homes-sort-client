@@ -5,6 +5,7 @@ import { RestApiService } from './rest-api.service';
 import { Home } from 'src/models/home';
 
 const BASE_URL = 'http://airbnbscrapeserver.x6pv2j6aqy.us-east-1.elasticbeanstalk.com';
+// const BASE_URL = 'http://127.0.0.1:5000';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ const BASE_URL = 'http://airbnbscrapeserver.x6pv2j6aqy.us-east-1.elasticbeanstal
 export class HomesService {
 
   constructor(
-    private http: HttpClient,
     private rest: RestApiService
   ) { }
 
@@ -20,14 +20,14 @@ export class HomesService {
     const { job_id } = await this.scrapeHomes(url, maxPageNumber);
     const homesJson = await this.getHomesWithJobId(job_id);
     await this.deleteHomesJsonFile(job_id);
-    return homesJson.map(json => Home.getHomeFromJson(json));
+    return !!homesJson ? homesJson.map(json => Home.getHomeFromJson(json)) : [];
   }
 
   scrapeHomes(url: string, maxPageNumber?: number) {
     return this.rest.request('POST', BASE_URL + '/scrape_homes', {
-      params: {
+      body: {
         url,
-        maxPageNumber
+        max_page_number: maxPageNumber
       },
     });
   }
@@ -41,7 +41,8 @@ export class HomesService {
   }
 
   deleteHomesJsonFile(jobId: string) {
-    return this.rest.request('DELETE', BASE_URL + '/file', {
+    return this.rest.request('DELETE', BASE_URL + '/delete_file', {
+      responseType: 'text',
       params: {
         job_id: jobId
       }
