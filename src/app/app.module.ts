@@ -7,7 +7,6 @@ import {
   MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule,
   MatListModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule
 } from '@angular/material';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 import { AppComponent } from './app.component';
@@ -19,8 +18,6 @@ import { ElevationDirective } from 'src/directives/elevation.directive';
 const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule,
   MatSelectModule, MatCardModule, MatListModule, MatIconModule, MatProgressSpinnerModule];
 
-const cdkModules = [ScrollingModule];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +28,7 @@ const cdkModules = [ScrollingModule];
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ...matModules,
-    ...cdkModules
+    ...matModules
   ],
   providers: [
     HomesService,
