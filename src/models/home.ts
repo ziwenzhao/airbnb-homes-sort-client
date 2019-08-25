@@ -21,9 +21,9 @@ export class Home {
         home.reviewCount = homeJson.review_count;
         home.price = homeJson.price;
         home.isNew = homeJson.is_new;
-        home.isSuperhost = homeJson.isSuperhost;
+        home.isSuperhost = homeJson.is_superhost;
         home.image = homeJson.image;
-        home.detailPage = homeJson.detailPage;
+        home.detailPage = homeJson.detail_page;
         return home;
     }
 }
