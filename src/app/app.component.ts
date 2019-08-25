@@ -11,35 +11,35 @@ import { Home } from 'src/models/home';
 })
 export class AppComponent {
   private searchForm: FormGroup;
-  private homes: Home[] = [];
-  // private homes: Home[] = [
-  //   {
-  //     image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
-  //     description: 'Skylit Loft in Old Montreal',
-  //     amenity: 'Wifi·Air conditioning·Kitchen',
-  //     room: '2 guests·1 bedroom·1 bed·1 bath',
-  //     rating: 4.77,
-  //     reviewCount: 353,
-  //     price: 122,
-  //     isNew: true,
-  //     isSuperhost: true,
-  //     homeType: 'Entire Home',
-  //     detailPage: undefined
-  //   },
-  //   {
-  //     image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
-  //     description: 'Skylit Loft in Old Montreal',
-  //     amenity: 'Wifi·Air conditioning·Kitchen',
-  //     room: '2 guests·1 bedroom·1 bed·1 bath',
-  //     rating: 4.77,
-  //     reviewCount: 353,
-  //     price: 122,
-  //     isNew: true,
-  //     isSuperhost: false,
-  //     homeType: 'Entire Home',
-  //     detailPage: undefined
-  //   }
-  // ];
+  // private homes: Home[] = [];
+  private homes: Home[] = [
+    {
+      image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
+      description: 'Skylit Loft in Old Montreal',
+      amenity: 'Wifi·Air conditioning·Kitchen',
+      room: '2 guests·1 bedroom·1 bed·1 bath',
+      rating: 4.77,
+      reviewCount: 353,
+      price: 122,
+      isNew: true,
+      isSuperhost: true,
+      homeType: 'Entire Home',
+      detailPage: undefined
+    },
+    {
+      image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
+      description: 'Skylit Loft in Old Montreal',
+      amenity: 'Wifi·Air conditioning·Kitchen',
+      room: '2 guests·1 bedroom·1 bed·1 bath',
+      rating: 4.77,
+      reviewCount: 353,
+      price: 122,
+      isNew: true,
+      isSuperhost: false,
+      homeType: 'Entire Home',
+      detailPage: undefined
+    }
+  ];
   private loading = false;
 
   constructor(

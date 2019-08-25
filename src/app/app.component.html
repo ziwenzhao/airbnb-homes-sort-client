@@ -33,33 +33,36 @@
   </div>
 </form>
 
+
+
 <cdk-virtual-scroll-viewport class="mt-5" itemSize="homes.length">
-  <mat-card *cdkVirtualFor="let home of homes" class="container mb-3">
-    <div class="row">
-      <div class="col-md-4">
-        <img class="img-fluid" [src]="home.image" alt="">
-      </div>
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col">
-            <div>{{home.homeType}}</div>
-            <div>{{home.description}}</div>
-            <div>{{home.room}}</div>
-            <div>{{home.amenity}}</div>
+  <mat-card class="container mb-3" *cdkVirtualFor="let home of homes" appElevation>
+    <a class="text-decoration-none text-dark" [href]="home.detail_page" target="_blank">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid" [src]="home.image" alt="">
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col">
+              <div>{{home.homeType}}</div>
+              <div>{{home.description}}</div>
+              <div>{{home.room}}</div>
+              <div>{{home.amenity}}</div>
+            </div>
+          </div>
+          <div class="home-content-footer row">
+            <div class="col-md-6">
+              {{home.rating}} ({{home.reviewCount}}) {{home.isSuperhost ? '·Superhost' : ''}}
+              {{home.isNew ? '·New' : ''}}
+            </div>
+            <div class="col-md-6 text-md-right">
+              ${{home.price}} /night
+            </div>
           </div>
         </div>
-        <div class="home-content-footer row">
-          <div class="col-md-6">
-            {{home.rating}} ({{home.reviewCount}}) {{home.isSuperhost ? '·Superhost' : ''}}
-            {{home.isNew ? '·New' : ''}}
-          </div>
-          <div class="col-md-6 text-md-right">
-            ${{home.price}} /night
-          </div>
-        </div>
       </div>
-    </div>
+    </a>
   </mat-card>
 </cdk-virtual-scroll-viewport>
-
 <!-- <mat-spinner></mat-spinner> -->

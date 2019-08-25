@@ -13,6 +13,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AppComponent } from './app.component';
 import { HomesService } from 'src/service/homes.service';
 import { RestApiService } from 'src/service/rest-api.service';
+import { ElevationDirective } from 'src/directives/elevation.directive';
 
 
 const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule,
@@ -22,7 +23,8 @@ const cdkModules = [ScrollingModule];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ElevationDirective
   ],
   imports: [
     BrowserModule,
