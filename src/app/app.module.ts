@@ -5,8 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule,
-  MatListModule, MatButtonModule, MatProgressSpinnerModule
+  MatListModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule
 } from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 import { AppComponent } from './app.component';
@@ -15,7 +16,9 @@ import { RestApiService } from 'src/service/rest-api.service';
 
 
 const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule,
-  MatSelectModule, MatCardModule, MatListModule, MatProgressSpinnerModule];
+  MatSelectModule, MatCardModule, MatListModule, MatIconModule, MatProgressSpinnerModule];
+
+const cdkModules = [ScrollingModule];
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ...matModules
+    ...matModules,
+    ...cdkModules
   ],
   providers: [
     HomesService,

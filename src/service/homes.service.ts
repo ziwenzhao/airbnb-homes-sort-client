@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { RestApiService } from './rest-api.service';
 import { Home } from 'src/models/home';
 
-const BASE_URL = 'http://airbnbscrapeserver.x6pv2j6aqy.us-east-1.elasticbeanstalk.com';
-// const BASE_URL = 'http://127.0.0.1:5000';
+// const BASE_URL = 'http://airbnbscrapeserver.x6pv2j6aqy.us-east-1.elasticbeanstalk.com';
+const BASE_URL = 'http://127.0.0.1:5000';
 
 @Injectable({
   providedIn: 'root'
