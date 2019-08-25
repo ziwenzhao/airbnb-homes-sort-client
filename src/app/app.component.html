@@ -33,7 +33,11 @@
   </div>
 </form>
 
-
+<!-- <mat-form-field>
+  <mat-select [(value)]="">
+    <mat-option *ngFor="let opiont of selectOptions"></mat-option>
+  </mat-select>
+</mat-form-field> -->
 
 <mat-card class="container mb-3" *ngFor="let home of homes" appElevation>
   <a class="text-decoration-none text-dark" [href]="home.detailPage" target="_blank">
@@ -52,6 +56,7 @@
         </div>
         <div class="home-content-footer row">
           <div class="col-md-6">
+            <mat-icon class="star-icon">star</mat-icon>
             {{home.rating}} ({{home.reviewCount}}) {{home.isSuperhost ? '·Superhost' : ''}}
             {{home.isNew ? '·New' : ''}}
           </div>

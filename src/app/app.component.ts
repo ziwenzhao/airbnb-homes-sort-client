@@ -11,6 +11,7 @@ import { Home } from 'src/models/home';
 })
 export class AppComponent {
   private searchForm: FormGroup;
+  // private select Options:
   // private homes: Home[] = [];
   private homes: Home[] = [
     {
