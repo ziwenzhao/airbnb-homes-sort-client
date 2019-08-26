@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HomesService } from 'src/service/homes.service';
 import { airbnbUrlValidator, integerValidator } from 'src/utils/validators';
 import { Home } from 'src/models/home';
+import { SortOption, defaultSortOptions, SortField, SortDirection, SortValue } from 'src/models/sort-option';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { Home } from 'src/models/home';
 })
 export class AppComponent {
   private searchForm: FormGroup;
-  // private select Options:
+  private sortOptions: SortOption[] = defaultSortOptions;
+  private selectedSort: SortValue;
   // private homes: Home[] = [];
   private homes: Home[] = [
     {
@@ -68,6 +70,25 @@ export class AppComponent {
     } finally {
       this.loading = false;
     }
+    this.sortHomes();
+  }
+
+  private sortHomes() {
+    this.homes.sort((home1, home2) => {
+      switch (this.selectedSort.field) {
+        case SortField.Price:
+          return this.selectedSort.direction === SortDirection.Asc ? home1.price - home2.price : home2.price - home1.price;
+        case SortField.Reviews:
+          return this.selectedSort.direction === SortDirection.Asc ?
+            home1.reviewCount - home2.reviewCount : home2.reviewCount - home1.reviewCount;
+        case SortField.Rating:
+          return this.selectedSort.direction === SortDirection.Asc ? home1.rating - home2.rating : home2.rating - home1.rating;
+      }
+    });
+  }
+
+  trackHomeItem(home: Home) {
+    return home.description;
   }
 
 }

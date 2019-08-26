@@ -8,14 +8,14 @@ export class SortValue {
     direction: SortDirection;
 }
 
-type SortOptionLable = 'Price' | 'Rating' | 'Reviews';
+export type SortOptionLable = 'Price' | 'Rating' | 'Reviews';
 
-enum SortDirection {
+export enum SortDirection {
     Asc,
     Des
 }
 
-enum SortField {
+export enum SortField {
     Price,
     Rating,
     Reviews

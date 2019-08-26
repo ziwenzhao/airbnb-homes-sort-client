@@ -1,7 +1,9 @@
-mat-form-field {
-    width: 650px;
+.search-form {
+    mat-form-field {
+        width: 650px;
+    }
 }
-    
+
 .home-content-footer {
     @media (min-width: 768px) {
         position: absolute;
@@ -21,14 +23,3 @@ mat-form-field {
     height: auto;
     vertical-align: -0.1rem;
 }
-    
-
-
-// @include media-breakpoint-up(md) 
-//     .home-content-footer
-//         color: red
-//         position: absolute
-//         width: 100%
-//         bottom: 0
-    
-
