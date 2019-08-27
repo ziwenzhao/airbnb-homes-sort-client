@@ -69,7 +69,7 @@ export class FilterValue {
     this.minReviews = null;
   }
 
-  hasAnyValue() {
+  hasValue() {
     return this.price.maxPrice !== null || this.price.minPrice !== null || this.minRating !== null || this.minReviews !== null;
   }
 }

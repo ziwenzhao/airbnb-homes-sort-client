@@ -34,7 +34,7 @@
 </form>
 
 
-<div class="search-results container">
+<div *ngIf="homes.length" class="search-results container">
   <div class="row align-items-center mb-2">
     <div class="col text-right">
       <mat-form-field>
@@ -46,7 +46,7 @@
       </mat-form-field>
     </div>
     <div class="col-3 col-md-2 text-right">
-      <button mat-raised-button [ngClass]="{'filled': filterValue.hasAnyValue()}"
+      <button mat-raised-button [ngClass]="{'filled': filterValue.hasValue()}"
         (click)="openFilterDialog()">Filters</button>
     </div>
   </div>
