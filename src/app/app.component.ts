@@ -17,14 +17,7 @@ export class AppComponent {
   private searchForm: FormGroup;
   private sortOptions: SortOption[] = defaultSortOptions;
   private selectedSort: SortValue;
-  private filterValue: FilterValue = {
-    price: {
-      minPrice: null,
-      maxPrice: null
-    },
-    minRating: null,
-    minReviews: null
-  };
+  private filterValue: FilterValue = new FilterValue();
   private homes: Home[] = [];
   // private filteredHomes: Home[] = [
   //   {
@@ -118,6 +111,13 @@ export class AppComponent {
     const dialogRef = this.dialog.open(HomeFiltersComponent, {
       data: this.filterValue
     });
+
+    dialogRef.componentInstance.clearFilterEvent.subscribe(() => {
+      this.filterValue.clear();
+      this.filteredHomes = this.homes;
+      this.sortHomes();
+    });
+
     dialogRef.afterClosed().pipe(
       first()
     ).subscribe((val: FilterValue) => {
