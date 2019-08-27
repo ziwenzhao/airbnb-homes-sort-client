@@ -121,7 +121,6 @@ export class AppComponent {
     dialogRef.afterClosed().pipe(
       first()
     ).subscribe((val: FilterValue) => {
-      console.log('subscribe dialog closed', val);
       if (val) {
         this.filterValue = val;
         this.filterHomes();
