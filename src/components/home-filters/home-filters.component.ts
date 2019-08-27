@@ -68,6 +68,10 @@ export class FilterValue {
     this.minRating = null;
     this.minReviews = null;
   }
+
+  hasAnyValue() {
+    return this.price.maxPrice !== null || this.price.minPrice !== null || this.minRating !== null || this.minReviews !== null;
+  }
 }
 
 export class FilterPrice {

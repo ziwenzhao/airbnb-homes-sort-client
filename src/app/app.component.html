@@ -46,7 +46,8 @@
       </mat-form-field>
     </div>
     <div class="col-3 col-md-2 text-right">
-      <button mat-raised-button (click)="openFilterDialog()">Filters</button>
+      <button mat-raised-button [ngClass]="{'filled': filterValue.hasAnyValue()}"
+        (click)="openFilterDialog()">Filters</button>
     </div>
   </div>
 
