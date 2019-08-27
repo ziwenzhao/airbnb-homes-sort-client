@@ -35,8 +35,8 @@
 
 
 <div class="search-results container">
-  <div class="row">
-    <div class="col">
+  <div class="row align-items-center mb-2">
+    <div class="col text-right">
       <mat-form-field>
         <mat-select [(value)]="selectedSort" placeholder="Sort by" (selectionChange)="sortHomes()">
           <mat-option *ngFor="let option of sortOptions" [value]="option.value">
@@ -45,7 +45,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col-3 col-md-2 text-right">
       <button mat-raised-button (click)="openFilterDialog()">Filters</button>
     </div>
   </div>
