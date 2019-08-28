@@ -7,6 +7,7 @@ import {
   MatFormFieldModule, MatInputModule, MatSelectModule, MatCardModule,
   MatListModule, MatButtonModule, MatProgressSpinnerModule, MatIconModule, MatDialogModule
 } from '@angular/material';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { AppComponent } from './app.component';
 import { HomeFiltersComponent } from '../components/home-filters/home-filters.component';
@@ -19,6 +20,8 @@ import { ElevationDirective } from 'src/directives/elevation.directive';
 const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule,
   MatSelectModule, MatCardModule, MatListModule, MatIconModule, MatProgressSpinnerModule];
 
+const CDKModules = [OverlayModule];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,8 @@ const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatDial
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ...matModules
+    ...matModules,
+    ...CDKModules
   ],
   entryComponents: [
     HomeFiltersComponent

@@ -1,61 +1,52 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, TemplateRef, ViewChild, ViewContainerRef, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { first } from 'rxjs/operators';
+
+import { HomeFiltersComponent, FilterValue } from 'src/components/home-filters/home-filters.component';
 import { HomesService } from 'src/service/homes.service';
 import { airbnbUrlValidator, integerValidator } from 'src/utils/validators';
 import { Home } from 'src/models/home';
 import { SortOption, defaultSortOptions, SortField, SortDirection, SortValue } from 'src/models/sort-option';
-import { HomeFiltersComponent, FilterValue } from 'src/components/home-filters/home-filters.component';
-import { first } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   private searchForm: FormGroup;
   private sortOptions: SortOption[] = defaultSortOptions;
   private selectedSort: SortValue;
   private filterValue: FilterValue = new FilterValue();
   private homes: Home[] = [];
-  // private filteredHomes: Home[] = [
-  //   {
-  //     image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
-  //     description: 'Skylit Loft in Old Montreal',
-  //     amenity: 'Wifi·Air conditioning·Kitchen',
-  //     room: '2 guests·1 bedroom·1 bed·1 bath',
-  //     rating: 4.77,
-  //     reviewCount: 353,
-  //     price: 122,
-  //     isNew: true,
-  //     isSuperhost: true,
-  //     homeType: 'Entire Home',
-  //     detailPage: undefined
-  //   },
-  //   {
-  //     image: 'https://a0.muscache.com/im/pictures/50226263/1514a6b6_original.jpg?aki_policy=large',
-  //     description: 'Skylit Loft in Old Montreal',
-  //     amenity: 'Wifi·Air conditioning·Kitchen',
-  //     room: '2 guests·1 bedroom·1 bed·1 bath',
-  //     rating: 4.77,
-  //     reviewCount: 353,
-  //     price: 122,
-  //     isNew: true,
-  //     isSuperhost: false,
-  //     homeType: 'Entire Home',
-  //     detailPage: undefined
-  //   }
-  // ];
   private filteredHomes: Home[] = [];
-  private loading = false;
+  private overlayRef: OverlayRef;
+  private spinnerPortal: TemplatePortal;
+  private lastSearchRequestTimestamp: number = null;
+
+  @ViewChild('spinnerRef', { static: true })
+  private spinnerRef: TemplateRef<any>;
 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private homeService: HomesService
+    private homeService: HomesService,
+    private overlay: Overlay,
+    private vcRef: ViewContainerRef
   ) {
     this.initForm();
+  }
+
+  ngAfterViewInit() {
+    this.overlayRef = this.overlay.create({
+      hasBackdrop: false,
+      positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically()
+    });
+    this.spinnerPortal = new TemplatePortal(this.spinnerRef, this.vcRef);
   }
 
   private initForm() {
@@ -66,18 +57,36 @@ export class AppComponent {
   }
 
   private async searchHomes() {
-    this.loading = true;
+    if (this.lastSearchRequestTimestamp === null) {
+      this.showSpinner();
+    }
+    const timestamp = Date.now();
+    this.lastSearchRequestTimestamp = timestamp;
     try {
-      this.homes = await this.homeService.scrapeAndGetHomes(this.searchForm.controls.url.value,
+      const homes = await this.homeService.scrapeAndGetHomes(this.searchForm.controls.url.value,
         this.searchForm.controls.maxPageNumber.value);
       console.log('Fetching homes success', this.homes);
+      if (timestamp === this.lastSearchRequestTimestamp) {
+        this.homes = homes;
+        this.filterHomes();
+        this.sortHomes();
+      }
     } catch (err) {
       console.error('Fetch homes fails', err);
     } finally {
-      this.loading = false;
+      if (timestamp === this.lastSearchRequestTimestamp) {
+        this.hideSpinner();
+        this.lastSearchRequestTimestamp = null;
+      }
     }
-    this.filterHomes();
-    this.sortHomes();
+  }
+
+  private showSpinner() {
+    this.overlayRef.attach(this.spinnerPortal);
+  }
+
+  private hideSpinner() {
+    this.overlayRef.detach();
   }
 
   private sortHomes() {
