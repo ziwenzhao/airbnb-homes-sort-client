@@ -18,25 +18,25 @@ import { SortOption, defaultSortOptions, SortField, SortDirection, SortValue } f
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-  private searchForm: FormGroup;
-  private sortOptions: SortOption[] = defaultSortOptions;
-  private selectedSort: SortValue;
-  private filterValue: FilterValue = new FilterValue();
-  private homes: Home[] = [];
-  private filteredHomes: Home[] = [];
-  private overlayRef: OverlayRef;
-  private spinnerPortal: TemplatePortal;
-  private lastSearchRequestTimestamp: number = null;
+  public searchForm: FormGroup;
+  public sortOptions: SortOption[] = defaultSortOptions;
+  public selectedSort: SortValue;
+  public filterValue: FilterValue = new FilterValue();
+  public homes: Home[] = [];
+  public filteredHomes: Home[] = [];
+  public overlayRef: OverlayRef;
+  public spinnerPortal: TemplatePortal;
+  public lastSearchRequestTimestamp: number = null;
 
   @ViewChild('spinnerRef', { static: true })
-  private spinnerRef: TemplateRef<any>;
+  public spinnerRef: TemplateRef<any>;
 
   constructor(
-    private fb: FormBuilder,
-    private dialog: MatDialog,
-    private homeService: HomesService,
-    private overlay: Overlay,
-    private vcRef: ViewContainerRef
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public homeService: HomesService,
+    public overlay: Overlay,
+    public vcRef: ViewContainerRef
   ) {
     this.initForm();
   }
@@ -49,14 +49,14 @@ export class AppComponent implements AfterViewInit {
     this.spinnerPortal = new TemplatePortal(this.spinnerRef, this.vcRef);
   }
 
-  private initForm() {
+  public initForm() {
     this.searchForm = this.fb.group({
       url: ['', airbnbUrlValidator],
       maxPageNumber: [null, integerValidator]
     });
   }
 
-  private async searchHomes() {
+  public async searchHomes() {
     if (this.lastSearchRequestTimestamp === null) {
       this.showSpinner();
     }
@@ -81,15 +81,15 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  private showSpinner() {
+  public showSpinner() {
     this.overlayRef.attach(this.spinnerPortal);
   }
 
-  private hideSpinner() {
+  public hideSpinner() {
     this.overlayRef.detach();
   }
 
-  private sortHomes() {
+  public sortHomes() {
     if (this.selectedSort) {
       this.filteredHomes.sort((home1, home2) => {
         switch (this.selectedSort.field) {
@@ -105,18 +105,18 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  private filterHomes() {
+  public filterHomes() {
     this.filteredHomes = this.homes.filter(home => (this.filterValue.price.minPrice ? home.price >= this.filterValue.price.minPrice : true)
       && (this.filterValue.price.maxPrice ? home.price <= this.filterValue.price.maxPrice : true)
       && (this.filterValue.minRating ? home.rating >= this.filterValue.minRating : true)
       && (this.filterValue.minReviews ? home.reviewCount >= this.filterValue.minReviews : true));
   }
 
-  private trackHomeItem(home: Home) {
+  public trackHomeItem(home: Home) {
     return home.description;
   }
 
-  private openFilterDialog() {
+  public openFilterDialog() {
     const dialogRef = this.dialog.open(HomeFiltersComponent, {
       data: this.filterValue
     });

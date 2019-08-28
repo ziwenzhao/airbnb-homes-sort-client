@@ -11,12 +11,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class HomeFiltersComponent implements OnInit {
 
   public clearFilterEvent = new EventEmitter();
-  private homeFilterForm: FormGroup;
+  public homeFilterForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<HomeFiltersComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) private filterValue?: FilterValue
+    public fb: FormBuilder,
+    public dialogRef: MatDialogRef<HomeFiltersComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public filterValue?: FilterValue
   ) {
   }
 
@@ -24,7 +24,7 @@ export class HomeFiltersComponent implements OnInit {
     this.initForm();
   }
 
-  private initForm() {
+  public initForm() {
     this.homeFilterForm = this.fb.group({
       price: this.fb.group({
         minPrice: this.filterValue.price.minPrice,
@@ -35,17 +35,17 @@ export class HomeFiltersComponent implements OnInit {
     });
   }
 
-  private onSubmit() {
+  public onSubmit() {
     const { price, minRating, minReviews } = this.homeFilterForm.value as FilterValue;
     this.dialogRef.close(new FilterValue(price, minRating, minReviews));
   }
 
-  private anyFilter() {
+  public anyFilter() {
     return this.homeFilterForm.value.price.minPrice !== null || this.homeFilterForm.value.price.maxPrice !== null
       || this.homeFilterForm.value.minReviews !== null || this.homeFilterForm.value.minRating !== null;
   }
 
-  private clearFilter() {
+  public clearFilter() {
     this.homeFilterForm.reset();
     this.clearFilterEvent.emit();
   }
