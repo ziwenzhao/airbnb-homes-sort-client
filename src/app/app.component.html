@@ -70,7 +70,8 @@
             <div class="home-content-footer row">
               <div class="col-md-6">
                 <mat-icon class="star-icon">star</mat-icon>
-                {{home.rating}} ({{home.reviewCount}}) {{home.isSuperhost ? '·Superhost' : ''}}
+                {{home.rating}} {{home.reviewCount ? '(' + home.reviewCount + ')' : ''}}
+                {{home.isSuperhost ? '·Superhost' : ''}}
                 {{home.isNew ? '·New' : ''}}
               </div>
               <div class="col-md-6 text-md-right">
